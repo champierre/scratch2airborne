@@ -3,7 +3,7 @@ var net = require('net');
 var ACTIVE = true;
 var STEPS = 10;
 var SCRATCH_PORT = 42001;
-var d = new RollingSpider({uuid:"31ccecc12ce242b0bcbe72070ed2bc18"});
+var d = new RollingSpider({uuid:"CHANGE HERE"});
 
 function cooldown() {
   ACTIVE = false;
@@ -13,7 +13,6 @@ function cooldown() {
 }
 
 d.connect(function () {
-
   d.setup(function () {
     console.log('Configured for Airborne! ', d.name);
     d.flatTrim();
@@ -23,17 +22,16 @@ d.connect(function () {
       console.log(d.name + ' => SESSION START');
       ACTIVE = true;
     }, 1000);
-
   });
 });
 
 var client = new net.Socket();
 client.connect(SCRATCH_PORT, '127.0.0.1', function() {
-	console.log('Connected');
+  console.log('Connected');
 });
 
 client.on('data', function(data) {
-	console.log('Received: ' + data);
+  console.log('Received: ' + data);
   if (String(data).match(/broadcast "(.*)"/) !== null) {
     var action = RegExp.$1;
     var param = {tilt:0, forward:0, turn:0, up:0};
@@ -55,5 +53,5 @@ client.on('data', function(data) {
 });
 
 client.on('close', function() {
-	console.log('Connection closed');
+  console.log('Connection closed');
 });
