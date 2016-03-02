@@ -10,6 +10,7 @@ With Scratch2Airborne, you can control Parrot Mini Drone series like Airborne Ca
 
 ## Requirements
 
+- Tested only on MacOS 10.10.5(Yosemite). Might work on other platforms but not sure.
 - [Scratch 1.4](https://scratch.mit.edu/scratch_1.4/)
 - [Node.js](https://nodejs.org)
 
