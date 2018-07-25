@@ -12,7 +12,7 @@
     };
 
     ext.connect = function() {
-      ws = new WebSocket('ws://localhost:8080');
+      ws = new WebSocket('ws://localhost:8888');
       console.log('Connected')
     }
 
