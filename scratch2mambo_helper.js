@@ -1,6 +1,5 @@
 var RollingSpider = require("rolling-spider");
 var ACTIVE = true;
-var STEPS = 10;
 var d = new RollingSpider({uuid:"f14b51c41e6849419fc1e6b13e0e3e58"}); // mambo
 
 var WebSocketServer = require('ws').Server;
@@ -12,7 +11,7 @@ function cooldown() {
   ACTIVE = false;
   setTimeout(function () {
     ACTIVE = true;
-  }, STEPS);
+  }, 10);
 }
 
 d.connect(function () {
@@ -39,20 +38,23 @@ wss.on('connection', function(ws) {
   ws.on('message', function(json) {
     console.log("received " + json);
     data = JSON.parse(json);
-    var param = {tilt:0, forward:0, turn:0, up:0};
-    if (data.command == 'drone_take_off') {
+    if (data.command == 'take_off') {
       d.takeOff();
-    } else if (data.command == 'drone_land') {
+    } else if (data.command == 'land') {
       d.land();
-    } else if (data.command == 'drone_forward') {
-      d.forward({ steps: STEPS }); cooldown();
-    } else if (data.command == 'drone_backward') {
-      d.backward({ steps: STEPS }); cooldown();
-    } else if (data.command == 'drone_right') {
-      param.turn = 90; d.drive(param, STEPS); cooldown();
-    } else if (data.command == 'drone_left') {
-      param.turn = -90; d.drive(param, STEPS); cooldown();
-    } else if (data.command == 'drone_flip') {
+    } else if (data.command == 'forward') {
+      d.forward({ speed: data.speed, steps: data.steps }); cooldown();
+    } else if (data.command == 'backward') {
+      d.backward({ speed: data.speed, steps: data.steps }); cooldown();
+    } else if (data.command == 'turn_right') {
+      d.turnRight({ speed: data.speed, steps: data.steps }); cooldown();
+    } else if (data.command == 'turn_left') {
+      d.turnLeft({ speed: data.speed, steps: data.steps }); cooldown();
+    } else if (data.command == 'up') {
+      d.up({ speed: data.speed, steps: data.steps }); cooldown();
+    } else if (data.command == 'down') {
+      d.down({ speed: data.speed, steps: data.steps }); cooldown();
+    } else if (data.command == 'front_flip') {
       d.frontFlip(); cooldown();
     }
   });

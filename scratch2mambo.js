@@ -18,43 +18,55 @@
 
     ext.take_off = function() {
       if (ws) {
-        ws.send(JSON.stringify({command: 'drone_take_off'}));
+        ws.send(JSON.stringify({command: 'take_off'}));
       }
     }
 
     ext.land = function() {
       if (ws) {
-        ws.send(JSON.stringify({command: 'drone_land'}));
+        ws.send(JSON.stringify({command: 'land'}));
       }
     }
 
-    ext.forward = function(steps) {
+    ext.forward = function(speed, steps) {
       if (ws) {
-        ws.send(JSON.stringify({command: 'drone_forward', steps: steps}));
+        ws.send(JSON.stringify({command: 'forward', speed: speed, steps: steps}));
       }
     };
 
-    ext.backward = function(steps) {
+    ext.backward = function(speed, steps) {
       if (ws) {
-        ws.send(JSON.stringify({command: 'drone_backward', steps: steps}));
+        ws.send(JSON.stringify({command: 'backward', speed: speed, steps: steps}));
       }
     }
 
-    ext.right = function(degrees) {
+    ext.turn_right = function(speed, steps) {
       if (ws) {
-        ws.send(JSON.stringify({command: 'drone_right', degrees: degrees}));
+        ws.send(JSON.stringify({command: 'turn_right', speed: speed, steps: steps}));
       }
     };
 
-    ext.left = function(degrees) {
+    ext.turn_left = function(speed, steps) {
       if (ws) {
-        ws.send(JSON.stringify({command: 'drone_left', degrees: degrees}));
+        ws.send(JSON.stringify({command: 'turn_left', speed: speed, steps: steps}));
       }
     }
 
-    ext.flip = function(degrees) {
+    ext.up = function(speed, steps) {
       if (ws) {
-        ws.send(JSON.stringify({command: 'drone_flip'}));
+        ws.send(JSON.stringify({command: 'up', speed: speed, steps: steps}));
+      }
+    };
+
+    ext.down = function(speed, steps) {
+      if (ws) {
+        ws.send(JSON.stringify({command: 'down', speed: speed, steps: steps}));
+      }
+    }
+
+    ext.front_flip = function() {
+      if (ws) {
+        ws.send(JSON.stringify({command: 'front_flip'}));
       }
     }
 
@@ -64,21 +76,25 @@
             connect: '接続する',
             take_off: '離陸',
             land: '着陸',
-            turn_right: '右に %n 度回す',
-            turn_left: '左に %n 度回す',
-            move_forward: '%n 歩前進させる',
-            move_backward: '%n 歩後退させる',
-            flip: '宙返り'
+            forward: '前進(スピード: %n、長さ: %n)',
+            backward: '後退(スピード: %n、長さ: %n)',
+            turn_right: '右旋回(スピード: %n、長さ: %n)',
+            turn_left: '左旋回(スピード: %n、長さ: %n)',
+            up: '上昇(スピード: %n、長さ: %n)',
+            down: '下降(スピード: %n、長さ: %n)',
+            front_flip: '前方宙返り'
         },
         en: {
             connect: 'connect',
             take_off: 'take off',
             land: 'land',
-            turn_right: 'turn right %n degrees',
-            turn_left: 'turn left %n degrees',
-            move_forward: 'move forward %n steps',
-            move_backward: 'move backward %n steps',
-            flip: 'flip'
+            forward: 'forward(speed: %n, steps: %n)',
+            backward: 'backward(speed: %n, steps: %n)',
+            turn_right: 'turn right(speed: %n, steps: %n)',
+            turn_left: 'turn left(speed: %n, steps: %n)',
+            up: 'up(speed: %n, steps: %n)',
+            down: 'down(speed: %n, steps: %n)',
+            front_flip: 'front flip'
         },
     }
 
@@ -87,11 +103,13 @@
             [' ', 'Drone: ' + locale[lang].connect, 'connect'],
             [' ', 'Drone: ' + locale[lang].take_off, 'take_off'],
             [' ', 'Drone: ' + locale[lang].land, 'land'],
-            [' ', 'Drone: ' + locale[lang].turn_right, 'right', 90],
-            [' ', 'Drone: ' + locale[lang].turn_left, 'left', 90],
-            [' ', 'Drone: ' + locale[lang].move_forward, 'forward'],
-            [' ', 'Drone: ' + locale[lang].move_backward, 'backward'],
-            [' ', 'Drone: ' + locale[lang].flip, 'flip']
+            [' ', 'Drone: ' + locale[lang].forward, 'forward', 50, 10],
+            [' ', 'Drone: ' + locale[lang].backward, 'backward', 50, 10],
+            [' ', 'Drone: ' + locale[lang].turn_right, 'turn_right', 50, 10],
+            [' ', 'Drone: ' + locale[lang].turn_left, 'turn_left', 50, 10],
+            [' ', 'Drone: ' + locale[lang].up, 'up', 50, 10],
+            [' ', 'Drone: ' + locale[lang].down, 'down', 50, 10],
+            [' ', 'Drone: ' + locale[lang].front_flip, 'front_flip']
         ]
     };
 
