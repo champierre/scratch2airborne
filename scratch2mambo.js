@@ -64,6 +64,12 @@
       }
     }
 
+    ext.drive = function(tilt, forward, turn, up, steps) {
+      if (ws) {
+        ws.send(JSON.stringify({command: 'drive', tilt: tilt, forward: forward, turn: turn, up: up, steps: steps}));
+      }
+    }
+
     ext.front_flip = function() {
       if (ws) {
         ws.send(JSON.stringify({command: 'front_flip'}));
@@ -82,6 +88,7 @@
             turn_left: '左旋回(スピード: %n、長さ: %n)',
             up: '上昇(スピード: %n、長さ: %n)',
             down: '下降(スピード: %n、長さ: %n)',
+            drive: 'drive(tilt: %n, forward: %n, turn: %n, up: %n, steps: %n)',
             front_flip: '前方宙返り'
         },
         en: {
@@ -94,6 +101,7 @@
             turn_left: 'turn left(speed: %n, steps: %n)',
             up: 'up(speed: %n, steps: %n)',
             down: 'down(speed: %n, steps: %n)',
+            drive: 'drive(tilt: %n, forward: %n, turn: %n, up: %n, steps: %n)',
             front_flip: 'front flip'
         },
     }
@@ -109,6 +117,7 @@
             [' ', 'Drone: ' + locale[lang].turn_left, 'turn_left', 50, 10],
             [' ', 'Drone: ' + locale[lang].up, 'up', 50, 10],
             [' ', 'Drone: ' + locale[lang].down, 'down', 50, 10],
+            [' ', 'Drone: ' + locale[lang].drive, 'drive', 0, 50, 0, 0, 10],
             [' ', 'Drone: ' + locale[lang].front_flip, 'front_flip']
         ]
     };

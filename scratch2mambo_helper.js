@@ -54,6 +54,8 @@ wss.on('connection', function(ws) {
       d.up({ speed: data.speed, steps: data.steps }); cooldown();
     } else if (data.command == 'down') {
       d.down({ speed: data.speed, steps: data.steps }); cooldown();
+    } else if (data.command == 'drive') {
+      d.drive({ tilt: data.tilt, forward: data.forward, turn: data.turn, up: data.up }, data.steps); cooldown();
     } else if (data.command == 'front_flip') {
       d.frontFlip(); cooldown();
     }
